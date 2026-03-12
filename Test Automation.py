@@ -7,9 +7,9 @@ from selenium.webdriver.support.select import Select
 import time
 
 ops=webdriver.ChromeOptions()
-ops.add_argument("--disable-notifiations")
+ops.add_argument("--disable-notifications")
 
-driver=webdriver.Chrome(ops)
+driver=webdriver.Chrome(options=ops)
 driver.maximize_window()
 driver.implicitly_wait(10)
 wait=WebDriverWait(driver,10)
@@ -29,7 +29,7 @@ collection=driver.find_element(By.XPATH,"//select[@id='country']")
 one_option=Select(collection)
 one_option.select_by_visible_text("India")
 
-Data=driver.find_elements(By.XPATH,"//select[@id='country']")
+Data=driver.find_elements(By.XPATH,"//select[@id='country']/option")
 for i in Data:
     print(i.text)
 
@@ -62,7 +62,7 @@ date_picker=driver.find_elements(By.XPATH,"//table[@class='ui-datepicker-calenda
 select_date="24"
 
 for i in date_picker:
-    if i==select_date:
+    if i.text==select_date:
         i.click()
         break
 
@@ -175,9 +175,9 @@ for tab in driver.window_handles:
 driver.switch_to.window(parent)
 print(driver.title)
 
-input=driver.find_element(By.XPATH,"//input[@id='Wikipedia1_wikipedia-search-input']")
-input.send_keys("Python")
-input.submit()
+search_box=driver.find_element(By.XPATH,"//input[@id='Wikipedia1_wikipedia-search-input']")
+search_box.send_keys("Python")
+search_box.submit()
 
 res=driver.find_elements(By.XPATH,"//div[@id='wikipedia-search-result-link']")
 
@@ -191,3 +191,4 @@ for handle in windowID:
 
 time.sleep(5)
 driver.quit()
+
